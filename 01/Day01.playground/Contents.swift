@@ -4,12 +4,12 @@ struct Module {
     let mass: Int
     var fuelToLaunch: Int {
         get {
-            return Int(requiredFuel(forMass: Double(mass)))
+            return requiredFuel(forMass: mass)
         }
     }
     
-    private func requiredFuel(forMass mass: Double) -> Double {
-        let fuel = (mass / 3).rounded(.down) - 2
+    private func requiredFuel(forMass mass: Int) -> Int {
+        let fuel = Int((Double(mass) / 3).rounded(.down) - 2)
         guard fuel > 0 else {
             return 0
         }
