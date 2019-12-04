@@ -182,8 +182,6 @@ func testPartOne(routeOne: [String], routeTwo: [String], expected: Int) -> Strin
     return "Pass"
 }
 
-testPartOne(routeOne: ["U3", "R3", "D3"], routeTwo: ["D3", "R3", "U3"], expected: 3)
-
 testPartOne(
     routeOne: ["R75", "D30", "R83", "U83", "L12", "D49", "R71", "U7", "L72"],
     routeTwo: ["U62", "R66", "U55", "R34", "D71", "R55", "D58", "R83"],
