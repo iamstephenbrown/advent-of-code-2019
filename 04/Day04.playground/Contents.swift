@@ -1,5 +1,6 @@
 enum ValidationRule {
     case adjacentDigits
+    case adjacentDigitsNotRepeating
     case doesntDecrease
 }
 
@@ -20,6 +21,33 @@ class AdjacentValidator: Validator {
         }
         
         return false
+    }
+}
+
+class AdjacentNotRepeatingValidator: Validator {
+    func isValid(password: [Int]) -> Bool {
+        var hasDouble: Bool = false
+        for i in password.indices {
+            guard i > 0 else {
+                continue
+            }
+            
+            if password[i] == password[i - 1] {
+                // we have a match, is either side bad?
+                if i > 1, password[i] == password[i - 2] {
+                    // its a 3! the digit before is the same as the pair
+                    continue
+                }
+                if i < (password.count - 1), password[i] == password[i + 1] {
+                    // its a 3! the digit after is the same as the pair
+                    continue
+                }
+                
+                hasDouble = true
+            }
+        }
+        
+        return hasDouble
     }
 }
 
@@ -52,6 +80,9 @@ class PasswordFinder {
         
         if validationRules.contains(.adjacentDigits) {
             validators.append(AdjacentValidator())
+        }
+        if validationRules.contains(.adjacentDigitsNotRepeating) {
+            validators.append(AdjacentNotRepeatingValidator())
         }
         if validationRules.contains(.doesntDecrease) {
             validators.append(DecreasingValidator())
@@ -96,3 +127,8 @@ let x = passwordFinder.calculatePasswords()
 print("Part One Answer\(x.count)")
 
 
+// Part Two
+// No more than 2 repeating (one set of 2 is ok, if there is another set that is more matching)
+let passwordFinder = PasswordFinder(numDigits: 6, min: 128392, max: 643281, validationRules: [.doesntDecrease, .adjacentDigitsNotRepeating])
+let y = passwordFinder.calculatePasswords()
+print("Part Two Answer \(y.count)")
