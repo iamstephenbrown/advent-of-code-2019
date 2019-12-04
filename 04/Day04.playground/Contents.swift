@@ -129,6 +129,6 @@ print("Part One Answer\(x.count)")
 
 // Part Two
 // No more than 2 repeating (one set of 2 is ok, if there is another set that is more matching)
-let passwordFinder = PasswordFinder(numDigits: 6, min: 128392, max: 643281, validationRules: [.doesntDecrease, .adjacentDigitsNotRepeating])
+let passwordFinderTwo = PasswordFinder(numDigits: 6, min: 128392, max: 643281, validationRules: [.doesntDecrease, .adjacentDigitsNotRepeating])
 let y = passwordFinder.calculatePasswords()
 print("Part Two Answer \(y.count)")
